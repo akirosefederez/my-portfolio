@@ -60,11 +60,7 @@ const contactFacts = [
 ];
 
 export default function Home() {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "light";
-
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  });
+  const [theme, setTheme] = useState("light");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
