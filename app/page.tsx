@@ -1,6 +1,11 @@
 ﻿"use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import AboutSection from "./components/sections/AboutSection";
+import ContactSection from "./components/sections/ContactSection";
+import HeroSection from "./components/sections/HeroSection";
+import ProjectsSection from "./components/sections/ProjectsSection";
+import SkillsSection from "./components/sections/SkillsSection";
 
 const navLinks = [
   { href: "#about", label: "About" },
@@ -55,14 +60,12 @@ const contactFacts = [
 ];
 
 export default function Home() {
-  const [theme, setTheme] = useState("light");
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
 
-  useEffect(() => {
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-    }
-  }, []);
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -173,203 +176,15 @@ export default function Home() {
         </div>
       </aside>
 
-      <section className="hero">
-        <div className="wrap hero-grid">
-          <div className="hero-text">
-            <div className="eyebrow reveal">
-              <span className="cursor" /> $ whoami
-            </div>
-            <h1 className="reveal delay-1">
-              Hi, I'm Aki Rose Federez —<br />
-              <span className="accent">I'm a Fullstack Developer</span>
-            </h1>
-            <p className="lead reveal delay-2">
-              I design and build complete web products end to end — from pixel-considered interfaces down to the APIs and databases that keep them running.
-            </p>
-            <div className="hero-actions reveal delay-3">
-              <a href="#projects" className="btn btn-primary">View my work</a>
-              <a href="#contact" className="btn btn-outline">Let's talk</a>
-            </div>
-          </div>
+      <HeroSection />
 
-          <div className="hero-visual reveal delay-2">
-            <div className="chrome-window">
-              <div className="chrome-bar">
-                <div className="chrome-dot" style={{ background: "#ff5f57" }} />
-                <div className="chrome-dot" style={{ background: "#febc2e" }} />
-                <div className="chrome-dot" style={{ background: "#28c840" }} />
-              </div>
-              <div className="chrome-body">
-                <span className="tok-mut">// developer.js</span>
-                <br />
-                <span className="tok-key">const</span> developer = {'{'}
-                <br />
-                {'  '}username: <span className="tok-str">'FruityAki'</span>,
-                <br />
-                {'  '}role: <span className="tok-str">'Fullstack Developer'</span>,
-                <br />
-                {'  '}stack: [<span className="tok-str">'React'</span>, <span className="tok-str">'Node'</span>, <span className="tok-str">'SQL'</span>],
-                <br />
-                {'  '}<span className="tok-fn">available</span>: <span className="tok-key">true</span>
-                <br />
-                {'};'}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection />
 
-      <section id="about">
-        <div className="wrap about-grid">
-          <div className="about-photo reveal">
-            <div className="chrome-window">
-              <div className="chrome-bar">
-                <div className="chrome-dot" style={{ background: "#ff5f57" }} />
-                <div className="chrome-dot" style={{ background: "#febc2e" }} />
-                <div className="chrome-dot" style={{ background: "#28c840" }} />
-              </div>
-              <div className="chrome-body">FA</div>
-            </div>
-          </div>
-          <div className="about-text">
-            <span className="section-tag reveal">{"<About/>"}</span>
-            <h2 className="reveal delay-1" style={{ marginBottom: "22px" }}>
-              A developer who cares about both ends of the stack
-            </h2>
-            <p className="reveal delay-2">
-              I started out tinkering with layouts in the browser's inspector, and ended up falling in love with everything underneath it too — servers, schemas, and the quiet plumbing that makes an app actually work.
-            </p>
-            <p className="reveal delay-2">
-              These days I split my time between shipping clean, responsive interfaces and building the backend systems that support them: REST and GraphQL APIs, relational databases, and the occasional 2am deployment fix.
-            </p>
-            <div className="stat-row reveal delay-3">
-              <div className="stat">
-                <b>4+</b>
-                <span>Years building</span>
-              </div>
-              <div className="stat">
-                <b>30+</b>
-                <span>Projects shipped</span>
-              </div>
-              <div className="stat">
-                <b>12</b>
-                <span>Happy clients</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProjectsSection projects={projects} />
 
-      <section id="projects" style={{ background: "var(--surface-alt)" }}>
-        <div className="wrap">
-          <div className="section-head">
-            <span className="section-tag reveal">{"<Projects/>"}</span>
-            <h2 className="reveal delay-1">Selected work</h2>
-            <p className="reveal delay-2">
-              A few products I've built recently, spanning frontend, backend, and everything holding them together.
-            </p>
-          </div>
-          <div className="project-grid">
-            {projects.map((project, index) => (
-              <div
-                key={project.title}
-                className={`project-card reveal${index === 1 ? " delay-1" : index === 2 ? " delay-2" : ""}`}
-              >
-                <div className="project-thumb" style={{ background: project.visual }}>
-                  {project.title.split(" —")[0]}
-                </div>
-                <div className="project-body">
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="tag-row">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="tag">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SkillsSection skillGroups={skillGroups} />
 
-      <section id="skills">
-        <div className="wrap">
-          <div className="section-head">
-            <span className="section-tag reveal">{"<Skills/>"}</span>
-            <h2 className="reveal delay-1">Tools I reach for</h2>
-            <p className="reveal delay-2">
-              A working toolkit across the frontend, backend, and everything that keeps a project shipping smoothly.
-            </p>
-          </div>
-          <div className="skills-grid">
-            {skillGroups.map((group, index) => (
-              <div
-                key={group.title}
-                className={`skill-card reveal${index === 1 ? " delay-1" : index === 2 ? " delay-2" : ""}`}
-              >
-                <h3>{group.title}</h3>
-                <div className="skill-items">
-                  {group.items.map((item) => (
-                    <div key={item} className="tool-item">
-                      <div className="tool-icon">
-                        <span>{item.slice(0, 2)}</span>
-                      </div>
-                      <div className="tool-name">{item}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" style={{ background: "var(--surface-alt)" }}>
-        <div className="wrap">
-          <div className="section-head">
-            <span className="section-tag reveal">{"<Contact/>"}</span>
-            <h2 className="reveal delay-1">Let's build something together</h2>
-            <p className="reveal delay-2">
-              Have a project in mind, or just want to say hi? My inbox is open.
-            </p>
-          </div>
-          <div className="contact-grid">
-            <form className="reveal" onSubmit={handleSubmit}>
-              <div className="field">
-                <label htmlFor="name">Name</label>
-                <input id="name" type="text" placeholder="Your name" required />
-              </div>
-              <div className="field">
-                <label htmlFor="email">Email</label>
-                <input id="email" type="email" placeholder="you@example.com" required />
-              </div>
-              <div className="field">
-                <label htmlFor="message">Message</label>
-                <textarea id="message" placeholder="Tell me about your project..." required />
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Send message
-              </button>
-            </form>
-            <div className="contact-side reveal delay-1">
-              {contactFacts.map((fact) => (
-                <div key={fact.label} className="row">
-                  <div className="ic">
-                    <span>{fact.label.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <small>{fact.label}</small>
-                    {fact.value}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <ContactSection contactFacts={contactFacts} onSubmit={handleSubmit} />
 
       <footer>
         <div className="wrap footer-grid">
