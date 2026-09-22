@@ -72,8 +72,9 @@ export default function Home() {
   }, [drawerOpen]);
 
   useEffect(() => {
+    document.body.classList.add("reveal-ready");
     const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
-    if (!revealEls.length) return;
+    if (!revealEls.length) return () => document.body.classList.remove("reveal-ready");
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -88,7 +89,10 @@ export default function Home() {
     );
 
     revealEls.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.body.classList.remove("reveal-ready");
+    };
   }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
