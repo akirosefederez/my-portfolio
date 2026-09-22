@@ -13,7 +13,7 @@ export default function HeroSection() {
             <span className="accent">I&apos;m a Fullstack Developer</span>
           </h1>
           <p className="lead reveal delay-2">
-            I design and build complete web products end to end — from pixel-considered interfaces down to the APIs and databases that keep them running.
+            I build responsive, user-focused websites from front to back — combining clean interfaces, reliable functionality, and well-structured backend systems.
           </p>
           <div className="hero-actions reveal delay-3">
             <a href="#projects" className="btn btn-primary">
