@@ -61,15 +61,10 @@ const contactFacts = [
 
 export default function Home() {
   const [theme, setTheme] = useState("light");
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
-
-  useEffect(() => {
-    document.body.classList.toggle("drawer-lock", drawerOpen);
-  }, [drawerOpen]);
 
   useEffect(() => {
     document.body.classList.add("reveal-ready");
@@ -130,51 +125,51 @@ export default function Home() {
               <span className="btn-label">Email</span>
             </a>
 
-            <button
-              type="button"
-              className={drawerOpen ? "hamburger open" : "hamburger"}
-              aria-label="Open menu"
-              aria-expanded={drawerOpen}
-              aria-controls="mobileNav"
-              onClick={() => setDrawerOpen((open) => !open)}
-            >
-              <span className="bar" />
-              <span className="bar" />
-              <span className="bar" />
-            </button>
+            <details className="mobile-menu">
+              <summary className="hamburger" aria-label="Open menu">
+                <span className="bar" />
+                <span className="bar" />
+                <span className="bar" />
+              </summary>
+
+              <div className="nav-overlay" />
+
+              <aside id="mobileNav" className="mobile-drawer">
+                <div className="drawer-head">
+                  <div className="logo">
+                    Fruity<span>Aki</span>
+                  </div>
+                  <button
+                    type="button"
+                    className="icon-btn"
+                    aria-label="Close menu"
+                    onClick={(event) => event.currentTarget.closest("details")?.removeAttribute("open")}
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <nav className="drawer-links">
+                  {navLinks.map((link) => (
+                    <a key={link.href} href={link.href}>
+                      <span>{link.label}</span>
+                      <span className="arrow">→</span>
+                    </a>
+                  ))}
+                </nav>
+
+                <div className="drawer-foot">
+                  <a href="mailto:hello@fruityaki.dev" className="btn btn-primary">
+                    Say hello
+                  </a>
+                </div>
+              </aside>
+            </details>
           </div>
         </nav>
       </header>
-
-      <div className={drawerOpen ? "nav-overlay open" : "nav-overlay"} onClick={() => setDrawerOpen(false)} />
-
-      <aside id="mobileNav" className={drawerOpen ? "mobile-drawer open" : "mobile-drawer"} aria-hidden={!drawerOpen}>
-        <div className="drawer-head">
-          <div className="logo">
-            Fruity<span>Aki</span>
-          </div>
-          <button type="button" className="icon-btn" aria-label="Close menu" onClick={() => setDrawerOpen(false)}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M18 6L6 18M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        <nav className="drawer-links">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setDrawerOpen(false)}>
-              <span>{link.label}</span>
-              <span className="arrow">→</span>
-            </a>
-          ))}
-        </nav>
-
-        <div className="drawer-foot">
-          <a href="mailto:hello@fruityaki.dev" className="btn btn-primary">
-            Say hello
-          </a>
-        </div>
-      </aside>
 
       <HeroSection />
 
