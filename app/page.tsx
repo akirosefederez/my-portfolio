@@ -156,7 +156,6 @@ export default function Home() {
                   {navLinks.map((link) => (
                     <a key={link.href} href={link.href}>
                       <span>{link.label}</span>
-                      <span className="arrow">→</span>
                     </a>
                   ))}
                 </nav>
