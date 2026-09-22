@@ -33,6 +33,18 @@ html[data-theme="dark"]{
   --foreground:#ededed;
 }
 
+body:has(#theme-toggle:checked){
+  --bg:#363636;
+  --surface:#474747;
+  --surface-alt:#3f3f3f;
+  --text:#f2f1f0;
+  --text-muted:#A8A7A7;
+  --border:rgba(168,167,167,0.18);
+  --shadow:0 20px 45px -20px rgba(0,0,0,0.55);
+  --background:#0a0a0a;
+  --foreground:#ededed;
+}
+
 *{margin:0;padding:0;box-sizing:border-box;}
 
 html{
@@ -159,6 +171,12 @@ nav{
 }
 .icon-btn:hover{transform:translateY(-2px);}
 .icon-btn svg{width:18px;height:18px;stroke:var(--text);}
+.theme-toggle{position:relative;}
+.theme-toggle input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
+.theme-toggle svg{pointer-events:none;}
+.theme-toggle .sun-icon{display:none;}
+.theme-toggle:has(input:checked) .moon-icon{display:none;}
+.theme-toggle:has(input:checked) .sun-icon{display:block;}
 
 .btn{
   display:inline-flex;
