@@ -178,6 +178,7 @@ nav{
   color:#fff;
   box-shadow:0 12px 24px -10px var(--magenta);
 }
+.email-icon{display:none;width:18px;height:18px;}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 28px -8px var(--magenta);}
 .btn-outline{
   background:transparent;
@@ -689,6 +690,7 @@ footer ul a:hover{color:var(--magenta);}
     font-size:.82rem;
   }
   .btn-primary span.btn-label{display:none;}
+  .btn-primary .email-icon{display:block;}
   section{padding:72px 0;scroll-margin-top:74px;}
   .hero{padding-top:108px;min-height:auto;padding-bottom:80px;scroll-margin-top:74px;}
   .hero::before{width:320px;height:320px;top:-80px;right:-140px;max-width:60vw;max-height:60vw;}
