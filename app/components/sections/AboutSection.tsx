@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export default function AboutSection() {
   return (
     <section id="about">
@@ -11,7 +13,14 @@ export default function AboutSection() {
               <div className="chrome-dot" style={{ background: "#febc2e" }} />
               <div className="chrome-dot" style={{ background: "#28c840" }} />
             </div>
-            <div className="chrome-body">FA</div>
+            <Image
+              className="about-profile-image"
+              src="/images/profileportfolio.jpg"
+              alt="Profile portrait"
+              width={800}
+              height={1000}
+              priority
+            />
           </div>
         </div>
         <div className="about-text">

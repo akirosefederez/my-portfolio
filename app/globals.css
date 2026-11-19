@@ -396,6 +396,12 @@ nav{
   border-bottom:1px solid var(--border);
 }
 .chrome-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+.about-profile-image{
+  width:100%;
+  height:100%;
+  flex:1;
+  object-fit:cover;
+}
 .chrome-body{
   padding:26px 26px 30px;
   font-family:'JetBrains Mono',monospace;
