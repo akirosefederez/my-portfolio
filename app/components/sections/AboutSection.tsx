@@ -37,15 +37,15 @@ export default function AboutSection() {
           <div className="stat-row reveal delay-3">
             <div className="stat">
               <b>4+</b>
-              <span>Years building</span>
+              <span>Years Coding</span>
             </div>
             <div className="stat">
               <b>30+</b>
-              <span>Projects shipped</span>
+              <span>Projects Developed</span>
             </div>
             <div className="stat">
-              <b>12</b>
-              <span>Happy clients</span>
+              <b>3</b>
+              <span>Work Projects</span>
             </div>
           </div>
         </div>

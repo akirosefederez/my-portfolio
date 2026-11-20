@@ -1,10 +1,14 @@
 "use client";
 
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
 type Project = {
   title: string;
   description: string;
   tags: string[];
   visual: string;
+  image: string;
 };
 
 type ProjectsSectionProps = {
@@ -12,6 +16,17 @@ type ProjectsSectionProps = {
 };
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [imageUnavailable, setImageUnavailable] = useState(false);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (selectedProject && dialog && !dialog.open) {
+      dialog.showModal();
+    }
+  }, [selectedProject]);
+
   return (
     <section id="projects" style={{ background: "var(--surface-alt)" }}>
       <div className="wrap">
@@ -24,10 +39,20 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
         </div>
         <div className="project-grid">
           {projects.map((project, index) => (
-            <div
+            <article
               key={project.title}
               className={`project-card reveal${index === 1 ? " delay-1" : index === 2 ? " delay-2" : ""}`}
             >
+              <button
+                type="button"
+                className="project-card-action"
+                onClick={() => {
+                  setImageUnavailable(false);
+                  setSelectedProject(project);
+                }}
+                aria-label={`View ${project.title} screenshot`}
+                aria-haspopup="dialog"
+              />
               <div className="project-thumb" style={{ background: project.visual }}>
                 {project.title.split(" —")[0]}
               </div>
@@ -42,10 +67,49 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                   ))}
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
+      {selectedProject && (
+        <dialog
+          ref={dialogRef}
+          className="project-dialog"
+          aria-labelledby="project-dialog-title"
+          onClose={() => setSelectedProject(null)}
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              event.currentTarget.close();
+            }
+          }}
+        >
+          <div className="project-dialog-head">
+            <h2 id="project-dialog-title">{selectedProject.title}</h2>
+            <button
+              type="button"
+              className="project-dialog-close"
+              onClick={() => dialogRef.current?.close()}
+              aria-label="Close project preview"
+            >
+              &times;
+            </button>
+          </div>
+          {imageUnavailable ? (
+            <p className="project-image-fallback" role="status">
+              Add the project screenshot at <code>public{selectedProject.image}</code> to show it here.
+            </p>
+          ) : (
+            <Image
+              src={selectedProject.image}
+              alt={`${selectedProject.title} project screenshot`}
+              width={1600}
+              height={900}
+              className="project-dialog-image"
+              onError={() => setImageUnavailable(true)}
+            />
+          )}
+        </dialog>
+      )}
     </section>
   );
 }

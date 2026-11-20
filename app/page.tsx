@@ -21,13 +21,15 @@ const projects = [
       "A responsive web platform that showcases the PARCaralan scholarship program and facilitates community engagement.",
     tags: ["Laravel", "Stripe", "MySQL"],
     visual: "linear-gradient(135deg,#CC527A,#E8175D)",
+    image: "/images/projects/PARC/parc1.png",
   },
   {
     title: "Globaltronics — IMS",
     description:
-      "A scalable Infrastructure Management System to centralize and automate IT operations.",
+      "A scalable Infrastructure Management System to centralize and automate products and shipping operations.",
     tags: ["Laravel", "Node.js", "MySQL"],
     visual: "linear-gradient(135deg,#474747,#363636)",
+    image: "/images/projects/GBTX/gbtx1.png",
   },
   {
     title: "MettaCity — ecommerce",
@@ -35,6 +37,7 @@ const projects = [
       "A modern, responsive platform featuring interactive booking and immersive digital entertainment hub.",
     tags: ["Laravel", "Node.js", "MySQL"],
     visual: "linear-gradient(135deg,#A8A7A7,#474747)",
+    image: "/images/projects/MC/mc1.png",
   },
 ];
 
